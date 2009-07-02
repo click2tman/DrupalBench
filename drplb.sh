@@ -1,8 +1,7 @@
 #!/bin/bash
-echo -n "drupal login: "
-read DUSER
+read -p "Drupal Login: " DUSER;
 stty -echo 
-read -p "Password: " DPASS; echo 
+read -p "Password: " DPASS;
 stty echo
 #DUSER=''
 #DPASS=''
@@ -23,7 +22,6 @@ do
   then
     break
   fi
-  echo "HTTP ${HTTPCODE}"
   BASESITE=$(echo ${BASESITE} | sed "s/\/${SUB}//")
 done
 
@@ -35,10 +33,10 @@ if [[ -z "${RESPONSE}" ]]
 then
   ABCOOKIE=$(grep "SESS" ${COOKIEFILE} | awk '{print $6"="$7}')
   # run ab with cookie info and any arguments passed to this script
-  echo "ab -C ${ABCOOKIE} $@"
+  echo "ab -C ${ABCOOKIE} $@" 1>&2
   ab -C ${ABCOOKIE} $@
 else
-  echo "Login failed!"
+  echo "Login failed!" 1>&2
 fi
 
 rm ${COOKIEFILE}
