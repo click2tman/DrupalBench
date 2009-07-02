@@ -33,7 +33,8 @@ if [[ -z "${RESPONSE}" ]]
 then
   ABCOOKIE=$(grep "SESS" ${COOKIEFILE} | awk '{print $6"="$7}')
   # run ab with cookie info and any arguments passed to this script
-  echo "ab -C ${ABCOOKIE} $@" 1>&2
+  ## uncomment if you want to see the ab command that's run..
+  #echo "ab -C ${ABCOOKIE} $@" 1>&2
   ab -C ${ABCOOKIE} $@
 else
   echo "Login failed!" 1>&2
